@@ -1,0 +1,68 @@
+-- ================================
+-- SENTENCIAS DDL
+-- ================================
+
+CREATE TABLE clientes (
+	id SERIAL PRIMARY KEY,
+	nombre VARCHAR(100) NOT NULL,
+	email VARCHAR(100) UNIQUE,
+	ciudad VARCHAR(50)
+);
+
+CREATE TABLE categorias (
+	id SERIAL PRIMARY KEY,
+	nombre VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE productos (
+	id SERIAL PRIMARY KEY,
+	nombre VARCHAR(100) NOT NULL,
+	precio DECIMAL(10,2) NOT NULL,
+	categoria_id INT NOT NULL,
+	FOREIGN KEY (categoria_id)
+		REFERENCES categorias(id)
+);
+
+ CREATE TABLE pedidos (
+	id SERIAL PRIMARY KEY,
+	cliente_id INT NOT NULL,
+	producto_id INT NOT NULL, 
+	cantidad INT NOT NULL, 
+	fecha DATE NOT NULL,
+	FOREIGN KEY (cliente_id)
+		REFERENCES clientes(id),
+	FOREIGN KEY (producto_id)
+		REFERENCES productos(id)
+ );
+
+
+ -- ================================
+-- SENTENCIAS DML
+-- ================================
+INSERT INTO categorias (nombre)
+VALUES
+('Electronica'),
+('Libros'),
+('Hogar');
+
+select * from categorias;
+
+INSERT INTO clientes (nombre, email, ciudad)
+VALUES
+('Juanita Gutierrez', 'juana@gmail.com', 'Medellin'),
+('Maria Suarez', 'maria@hotmail.com', 'Cali'),
+('Gisella Martinez', 'gmartinez@devsenior.com', 'Cartagena');
+
+
+select * from clientes;
+
+INSERT INTO productos (nombre, precio, categoria_id)
+VALUES
+('Lenovo', 450.00, 1),
+('Mouse gamer', 85.00, 1),
+('El quijote de la mancha', 30.00, 2),
+('Luz led', 12.00, 3);
+
+select * from productos;
+
+
